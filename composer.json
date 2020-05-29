@@ -1,0 +1,54 @@
+{
+    "name": "jakejames/Repo-Generator",
+    "description": "Generates a boilerplate repository pattern",
+    "keywords": [
+        "jakejames",
+        "Repo-Generator"
+    ],
+    "homepage": "https://github.com/jakejames/Repo-Generator",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jake James",
+            "email": "jake@jump24.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JakeJames\\RepoGenerator\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JakeJames\\RepoGenerator\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JakeJames\\RepoGenerator\\RepoGeneratorServiceProvider"
+            ],
+            "aliases": {
+                "RepoGenerator": "JakeJames\\RepoGenerator\\RepoGeneratorFacade"
+            }
+        }
+    }
+}
