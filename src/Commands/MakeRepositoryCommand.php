@@ -124,7 +124,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/repository.stub');
 
-        $this->replaceClassName($stub)->replaceContractName($stub);
+        $this->replaceClassName($stub, true)->replaceContractName($stub);
 
         return $stub;
     }
@@ -148,12 +148,17 @@ class MakeRepositoryCommand extends Command
      * Replace the class name in the stub.
      *
      * @param string $stub
+     * @param bool $repository
      *
      * @return $this
      */
-    protected function replaceClassName(&$stub): self
+    protected function replaceClassName(&$stub, $repository = false): self
     {
         $className = ucwords(Str::camel($this->argument('name')));
+
+        if (!$repository) {
+            str_replace('Repository', '', $className)
+        }
 
         $stub = str_replace('{{class}}', $className, $stub);
 
