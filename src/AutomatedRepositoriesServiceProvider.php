@@ -14,7 +14,7 @@ class AutomatedRepositoriesServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('repo-generator.php'),
+                __DIR__.'/../config/config.php' => config_path('automated-repositories.php'),
             ], 'config');
         }
     }
@@ -25,7 +25,7 @@ class AutomatedRepositoriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'repo-generator');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'automated-repositories');
         $this->registerRepositoryGenerator();
     }
 
