@@ -239,10 +239,10 @@ class MakeRepositoryCommand extends Command
                 '{{repository_name}}'
             ],
             [
-                $contractName . 'Contract',
-                $contractName . 'Repository',
                 $contractName . ' as ' . $contractName . 'Repository',
-                $contractName . ' as ' . $contractName . 'Contract'
+                $contractName . ' as ' . $contractName . 'Contract',
+                $contractName . 'Contract',
+                $contractName . 'Repository'
             ], $stub);
 
         return $this;
@@ -293,7 +293,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function getPath(string $name, string $type): string
     {
-        return base_path() . '/' . $type . '/' . $name . '.php';
+        return base_path() . 'app/' . $type . '/' . $name . '.php';
     }
 
     /**
