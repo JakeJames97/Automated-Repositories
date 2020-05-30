@@ -1,10 +1,10 @@
 <?php
 
-namespace JakeJames\RepoGenerator;
+namespace JakeJames\AutomatedRepositories;
 
 use Illuminate\Support\ServiceProvider;
 
-class RepoGeneratorServiceProvider extends ServiceProvider
+class AutomatedRepositoriesServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -35,10 +35,10 @@ class RepoGeneratorServiceProvider extends ServiceProvider
      */
     private function registerRepositoryGenerator(): void
     {
-        $this->app->singleton('jakejames.RepoGenerator.Commands.MakeRepositoryCommand', function ($app) {
-            return $app['JakeJames\RepoGenerator\Commands\MakeRepositoryCommand'];
+        $this->app->singleton('jakejames.AutomatedRepositories.Commands.MakeRepositoryCommand', function ($app) {
+            return $app['JakeJames\AutomatedRepositories\Commands\MakeRepositoryCommand'];
         });
 
-        $this->commands('jakejames.RepoGenerator.Commands.MakeRepositoryCommand');
+        $this->commands('jakejames.AutomatedRepositories.Commands.MakeRepositoryCommand');
     }
 }

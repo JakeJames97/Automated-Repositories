@@ -1,6 +1,6 @@
 <?php
 
-namespace JakeJames\RepoGenerator\Commands;
+namespace JakeJames\AutomatedRepositories\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
