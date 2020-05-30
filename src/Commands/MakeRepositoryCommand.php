@@ -41,6 +41,11 @@ class MakeRepositoryCommand extends Command
     protected $composer;
 
     /**
+     * @var $repoName
+     */
+    protected $repoName;
+
+    /**
      * MakeRepositoryCommand constructor.
      *
      * @param Filesystem $files
@@ -64,7 +69,8 @@ class MakeRepositoryCommand extends Command
     public function handle(): void
     {
         $name = $this->argument('name');
-        $name = Str::camel($name);
+        $name = ucwords(Str::camel($name));
+        $this->repoName = $name;
         $this->createRepository($name);
         $this->createContract($name);
 
@@ -171,6 +177,12 @@ class MakeRepositoryCommand extends Command
 
         $contractName = $this->convertNameForContract($className);
 
+        if ($contractName === $this->repoName) {
+            $stub = str_replace('{{contract_import}}', $contractName . 'as ' .  $contractName . 'Repository', $stub);
+        } else {
+            $stub = str_replace('{{contract_import}}', $contractName, $stub);
+        }
+
         $stub = str_replace('{{contract}}', $contractName, $stub);
 
         return $this;
@@ -202,12 +214,20 @@ class MakeRepositoryCommand extends Command
     }
 
     /**
+     * Converts the name given for the contract name
      * @param string $name
+     *
      * @return string
      */
     protected function convertNameForContract($name): string
     {
-        return str_replace('Repository', '', $name);
+        if (strpos($name, 'Repository')) {
+            return str_replace('Repository', '', $name);
+        }
+        if (strpos($name, 'Repo')) {
+            return str_replace('Repo', '', $name);
+        }
+        return $name;
     }
 
     /**

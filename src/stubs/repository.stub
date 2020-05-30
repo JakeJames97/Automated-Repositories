@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Contracts\{{contract}};
+use App\Contracts\{{contract_import}};
 
 class {{class}} implements {{contract}}
 {
