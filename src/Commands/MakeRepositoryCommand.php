@@ -133,7 +133,9 @@ class MakeRepositoryCommand extends Command
      */
     protected function createServiceProvider(string $name): bool
     {
-        if ($this->files->exists($path = $this->getPath($this->convertNameForContract($name), 'Providers'))) {
+        if ($this->files->exists(
+            $path = $this->getPath($this->convertNameForContract($name) . 'ServiceProvider', 'Providers')
+        )) {
             $this->error('Service Provider already exists!');
             return false;
         }
@@ -189,7 +191,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/provider.stub');
 
-        $this->replaceClassName($stub)->replaceImportNames($stub);
+        $this->replaceClassName($stub, false, true)->replaceImportNames($stub);
 
         return $stub;
     }
@@ -208,7 +210,7 @@ class MakeRepositoryCommand extends Command
         $className = ucwords(Str::camel($this->argument('name')));
 
         if (!$repository) {
-           $className = $this->convertNameForContract($className);
+            $className = $this->convertNameForContract($className);
         }
 
         if ($provider) {
@@ -233,13 +235,13 @@ class MakeRepositoryCommand extends Command
 
         $stub = str_replace(
             [
-                '{{contract_import}}',
                 '{{repository_import}}',
+                '{{contract_import}}',
                 '{{contract_name}}',
                 '{{repository_name}}'
             ],
             [
-                $contractName . ' as ' . $contractName . 'Repository',
+                $className === $contractName ? $className . ' as ' . $contractName . 'Repository' : $className,
                 $contractName . ' as ' . $contractName . 'Contract',
                 $contractName . 'Contract',
                 $contractName . 'Repository'
