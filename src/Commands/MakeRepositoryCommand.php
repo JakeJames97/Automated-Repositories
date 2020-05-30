@@ -7,7 +7,6 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 
 
@@ -77,6 +76,12 @@ class MakeRepositoryCommand extends Command
         $this->composer->dumpAutoloads();
     }
 
+    /**
+     * creates the repository
+     * @param string $name
+     *
+     * @return bool
+     */
     protected function createRepository(string $name): bool
     {
         if ($this->files->exists($path = $this->getPath($name, 'Repositories'))) {
@@ -95,6 +100,12 @@ class MakeRepositoryCommand extends Command
         return true;
     }
 
+    /**
+     * creates the contract
+     * @param string $name
+     *
+     * @return bool
+     */
     protected function createContract(string $name): bool
     {
         if ($this->files->exists($path = $this->getPath($this->convertNameForContract($name), 'Contracts'))) {
@@ -104,7 +115,31 @@ class MakeRepositoryCommand extends Command
         $this->makeDirectory($path);
 
         try {
-            $this->files->put($path, $this->compileContractStub());
+            $this->files->put($path, $this->compileProviderStub());
+        } catch (FileNotFoundException $e) {
+            $this->error('could not create Provider');
+            return false;
+        }
+        $this->info('Service Provider created successfully.');
+        return true;
+    }
+
+    /**
+     * creates service provider
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function createServiceProvider(string $name): bool
+    {
+        if ($this->files->exists($path = $this->getPath($this->convertNameForContract($name), 'Providers'))) {
+            $this->error('Service Provider already exists!');
+            return false;
+        }
+        $this->makeDirectory($path);
+
+        try {
+            $this->files->put($path, $this->compileProviderStub());
         } catch (FileNotFoundException $e) {
             $this->error('could not create contract');
             return false;
@@ -144,14 +179,30 @@ class MakeRepositoryCommand extends Command
     }
 
     /**
+     * Compile the provider stub.
+     *
+     * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function compileProviderStub(): string
+    {
+        $stub = $this->files->get(__DIR__ . '/../stubs/provider.stub');
+
+        $this->replaceClassName($stub)->replaceImportNames($stub);
+
+        return $stub;
+    }
+
+    /**
      * Replace the class name in the stub.
      *
      * @param string $stub
      * @param bool $repository
+     * @param bool $provider
      *
      * @return $this
      */
-    protected function replaceClassName(&$stub, $repository = false): self
+    protected function replaceClassName(&$stub, $repository = false, $provider = false): self
     {
         $className = ucwords(Str::camel($this->argument('name')));
 
@@ -159,7 +210,39 @@ class MakeRepositoryCommand extends Command
            $className = $this->convertNameForContract($className);
         }
 
+        if ($provider) {
+            $className .= 'ServiceProvider';
+        }
+
         $stub = str_replace('{{class}}', $className, $stub);
+
+        return $this;
+    }
+
+    /**
+     * @param $stub
+     *
+     * @return $this
+     */
+    protected function replaceImportNames(&$stub): self
+    {
+        $className = ucwords(Str::camel($this->argument('name')));
+
+        $contractName = $this->convertNameForContract($className);
+
+        $stub = str_replace(
+            [
+                '{{contract_import}}',
+                '{{repository_import}}',
+                '{{contract_name}}',
+                '{{repository_name}}'
+            ],
+            [
+                $contractName . 'Contract',
+                $contractName . 'Repository',
+                $contractName . ' as ' . $contractName . 'Repository',
+                $contractName . ' as ' . $contractName . 'Contract'
+            ], $stub);
 
         return $this;
     }
