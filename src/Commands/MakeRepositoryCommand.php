@@ -293,7 +293,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function getPath(string $name, string $type): string
     {
-        return base_path() . 'app/' . $type . '/' . $name . '.php';
+        return base_path() . '/app/' . $type . '/' . $name . '.php';
     }
 
     /**
