@@ -8,6 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Symfony\Component\Console\Input\InputArgument;
 
 
 class MakeRepositoryCommand extends Command
@@ -72,7 +73,7 @@ class MakeRepositoryCommand extends Command
 
     protected function createRepository(string $name): bool
     {
-        if ($this->files->exists($path = $this->getPath($name, 'repository'))) {
+        if ($this->files->exists($path = $this->getPath($name, 'Repositories'))) {
             $this->error($this->type . ' already exists!');
             return false;
         }
@@ -90,7 +91,7 @@ class MakeRepositoryCommand extends Command
 
     protected function createContract(string $name): bool
     {
-        if ($this->files->exists($path = $this->getPath($name, 'contract'))) {
+        if ($this->files->exists($path = $this->getPath($name, 'Contracts'))) {
             $this->error($this->type . ' already exists!');
             return false;
         }
@@ -146,7 +147,7 @@ class MakeRepositoryCommand extends Command
     /**
      * Replace the class name in the stub.
      *
-     * @param  string $stub
+     * @param string $stub
      *
      * @return $this
      */
@@ -162,7 +163,7 @@ class MakeRepositoryCommand extends Command
     /**
      * Replace the contract name in the stub.
      *
-     * @param  string $stub
+     * @param string $stub
      *
      * @return $this
      */
@@ -180,7 +181,7 @@ class MakeRepositoryCommand extends Command
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string $path
+     * @param string $path
      */
     protected function makeDirectory($path): void
     {
@@ -199,7 +200,19 @@ class MakeRepositoryCommand extends Command
      */
     protected function getPath(string $name, string $type): string
     {
-        return base_path() . '/' . $type . '/' . $name;
+        return base_path() . '/' . $type . '/' . $name . '.php';
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments(): array
+    {
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the repository'],
+        ];
     }
 
 }
