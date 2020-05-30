@@ -123,8 +123,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/repository.stub');
 
-        $this->replaceClassName($stub)
-            ->replaceContractName($stub);
+        $this->replaceClassName($stub)->replaceContractName($stub);
 
         return $stub;
     }
