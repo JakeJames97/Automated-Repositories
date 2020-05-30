@@ -64,7 +64,7 @@ class MakeRepositoryCommand extends Command
     public function handle(): void
     {
         $name = $this->argument('name');
-        $this->validateName($name);
+        $name = Str::camel($name);
         $this->createRepository($name);
         $this->createContract($name);
 
@@ -105,13 +105,6 @@ class MakeRepositoryCommand extends Command
         }
         $this->info('Contract created successfully.');
         return true;
-    }
-
-    protected function validateName($name): void
-    {
-        if (preg_match('([^A-Za-z0-9_/\\\\])', $name)) {
-            throw new InvalidArgumentException('Repository name contains invalid characters.');
-        }
     }
 
     /**
