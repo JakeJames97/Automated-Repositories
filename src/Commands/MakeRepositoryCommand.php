@@ -145,7 +145,7 @@ class MakeRepositoryCommand extends Command
             $this->files->put($path, $this->compileProviderStub());
             $providerFile = strstr($path, 'app/');
             $this->registerServiceProvider($providerFile);
-        } catch (FileNotFoundException $e) {
+        } catch (\Exception $e) {
             $this->error('could not create service provider');
             return false;
         }
@@ -154,17 +154,49 @@ class MakeRepositoryCommand extends Command
         return true;
     }
 
-    protected function registerServiceProvider(string $providerPath)
+    /**
+     * Registers the service provider in app config
+     * @param string $providerPath
+     *
+     * @return bool
+     */
+    protected function registerServiceProvider(string $providerPath): bool
     {
         $providerPath = $this->convertToRegisterFormat($providerPath);
 
-        $file_content = $this->files->get(base_path() . '/config/app.php');
+        if (!$this->files->isFile(base_path() . '/config/app.php')) {
+            $this->error('Your app file could not be found, please register your new provider: ' . $providerPath);
+            return false;
+        }
 
-        $array_start = strpos($file_content, "App\Providers\AppServiceProvider::class,");
+        if (!$this->files->isReadable(base_path() . '/config/app.php')) {
+            $this->error('Your app file is not readable, please register your new provider: ' . $providerPath);
+            return false;
+        }
 
-        $file_content = substr_replace($file_content, $providerPath, $array_start, 0);
+        if (!$this->files->isWritable(base_path() . '/config/app.php')) {
+            $this->error('Your app file is not writable, please register your new provider: ' . $providerPath);
+            return false;
+        }
+        try {
+            $file_content = $this->files->get(base_path() . '/config/app.php');
 
-        $this->files->put(base_path() . '/config/app.php', $file_content);
+            $array_start = strpos($file_content, "App\Providers\AppServiceProvider::class,");
+
+            $file_content = substr_replace($file_content, $providerPath, $array_start, 0);
+
+            $this->files->put(base_path() . '/config/app.php', $file_content);
+        } catch (\Exception $exception) {
+            $this->error(
+                'We could not register your service provider, please register your new provider: '
+                . $providerPath
+            );
+            return false;
+        }
+
+        $this->info('Registered Service Provider');
+
+        return true;
     }
 
     /**
@@ -239,6 +271,7 @@ class MakeRepositoryCommand extends Command
     }
 
     /**
+     * replaces the import names in the stub
      * @param $stub
      *
      * @return $this
