@@ -157,7 +157,7 @@ class MakeRepositoryCommand extends Command
         $className = ucwords(Str::camel($this->argument('name')));
 
         if (!$repository) {
-            str_replace('Repository', '', $className);
+           $className = str_replace('Repository', '', $className);
         }
 
         $stub = str_replace('{{class}}', $className, $stub);
