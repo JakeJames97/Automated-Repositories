@@ -2,6 +2,10 @@
 
 namespace App\Contracts;
 
+/**
+ * Interface {{class}}
+ * @package App\Contracts
+ */
 interface {{class}}
 {
 }
