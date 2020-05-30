@@ -115,12 +115,12 @@ class MakeRepositoryCommand extends Command
         $this->makeDirectory($path);
 
         try {
-            $this->files->put($path, $this->compileProviderStub());
+            $this->files->put($path, $this->compileContractStub());
         } catch (FileNotFoundException $e) {
-            $this->error('could not create Provider');
+            $this->error('Could not create Contract');
             return false;
         }
-        $this->info('Service Provider created successfully.');
+        $this->info('Contract created successfully.');
         return true;
     }
 
@@ -141,10 +141,10 @@ class MakeRepositoryCommand extends Command
         try {
             $this->files->put($path, $this->compileProviderStub());
         } catch (FileNotFoundException $e) {
-            $this->error('could not create contract');
+            $this->error('could not create service provider');
             return false;
         }
-        $this->info('Contract created successfully.');
+        $this->info('Service Provider created successfully.');
         return true;
     }
 
