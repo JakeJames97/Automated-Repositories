@@ -1,11 +1,11 @@
 {
-    "name": "jakejames/Repo-Generator",
+    "name": "jakejames/Automated-Repositories",
     "description": "Generates a boilerplate repository pattern",
     "keywords": [
         "jakejames",
-        "Repo-Generator"
+        "Automated-Repositories"
     ],
-    "homepage": "https://github.com/jakejames/Repo-Generator",
+    "homepage": "https://github.com/jakejames/Automated-Repositories",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "JakeJames\\RepoGenerator\\": "src"
+            "JakeJames\\AutomatedRepositories\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "JakeJames\\RepoGenerator\\Tests\\": "tests"
+            "JakeJames\\AutomatedRepositories\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "JakeJames\\RepoGenerator\\RepoGeneratorServiceProvider"
+                "JakeJames\\AutomatedRepositories\\AutomatedRepositoriesServiceProvider"
             ],
             "aliases": {
-                "RepoGenerator": "JakeJames\\RepoGenerator\\RepoGeneratorFacade"
+                "AutomatedRepositories": "JakeJames\\AutomatedRepositories\\AutomatedRepositoriesFacade"
             }
         }
     }

@@ -1,20 +1,20 @@
 <?php
 
-namespace JakeJames\RepoGenerator\Tests;
+namespace JakeJames\AutomatedRepositories\Tests;
 
 use Orchestra\Testbench\TestCase;
-use JakeJames\RepoGenerator\RepoGeneratorServiceProvider;
+use JakeJames\AutomatedRepositories\AutomatedRepositoriesServiceProvider;
 
 class ExampleTest extends TestCase
 {
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
-        return [RepoGeneratorServiceProvider::class];
+        return [AutomatedRepositoresServiceProvider::class];
     }
-    
+
     /** @test */
-    public function true_is_true()
+    public function true_is_true(): void
     {
         $this->assertTrue(true);
     }

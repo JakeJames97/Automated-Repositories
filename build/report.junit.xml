@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Test Suite" tests="1" assertions="0" errors="1" warnings="0" failures="0" skipped="0" time="0.036130">
+    <testsuite name="JakeJames\AutomatedRepositories\Tests\ExampleTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/ExampleTest.php" tests="1" assertions="0" errors="1" warnings="0" failures="0" skipped="0" time="0.036130">
+      <testcase name="true_is_true" class="JakeJames\AutomatedRepositories\Tests\ExampleTest" classname="JakeJames.AutomatedRepositories.Tests.ExampleTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/ExampleTest.php" line="17" assertions="0" time="0.036130">
+        <error type="Error">JakeJames\AutomatedRepositories\Tests\ExampleTest::true_is_true
+Error: Class 'JakeJames\AutomatedRepositories\Tests\AutomatedRepositoresServiceProvider' not found
+
+/Users/jakejames/Sites/Automated-Repositories/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:208
+/Users/jakejames/Sites/Automated-Repositories/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:144
+/Users/jakejames/Sites/Automated-Repositories/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php:61
+/Users/jakejames/Sites/Automated-Repositories/vendor/laravel/framework/src/Illuminate/Foundation/Application.php:593
+/Users/jakejames/Sites/Automated-Repositories/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php:17
+/Users/jakejames/Sites/Automated-Repositories/vendor/orchestra/testbench-core/src/Concerns/CreatesApplication.php:307
+/Users/jakejames/Sites/Automated-Repositories/vendor/orchestra/testbench-core/src/Concerns/CreatesApplication.php:203
+/Users/jakejames/Sites/Automated-Repositories/vendor/orchestra/testbench-core/src/TestCase.php:73
+/Users/jakejames/Sites/Automated-Repositories/vendor/orchestra/testbench-core/src/Concerns/Testing.php:68
+/Users/jakejames/Sites/Automated-Repositories/vendor/orchestra/testbench-core/src/TestCase.php:41
+</error>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>
