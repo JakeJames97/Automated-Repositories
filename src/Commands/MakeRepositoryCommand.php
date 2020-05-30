@@ -72,6 +72,7 @@ class MakeRepositoryCommand extends Command
         $this->repoName = $name;
         $this->createRepository($name);
         $this->createContract($name);
+        $this->createServiceProvider($name);
 
         $this->composer->dumpAutoloads();
     }
