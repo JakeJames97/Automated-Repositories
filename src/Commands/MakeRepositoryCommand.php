@@ -179,13 +179,13 @@ class MakeRepositoryCommand extends Command
             return false;
         }
         try {
-            $file_content = $this->files->get(config('config_path'));
+            $file_content = $this->files->get(base_path() . '/config/app.php');
 
             $array_start = strpos($file_content, "App\Providers\AppServiceProvider::class,");
 
             $file_content = substr_replace($file_content, $providerPath, $array_start, 0);
 
-            $this->files->put(config('config_path'), $file_content);
+            $this->files->put(base_path() . '/config/app.php', $file_content);
         } catch (\Exception $exception) {
             $this->error(
                 'We could not register your service provider, please register your new provider: '
