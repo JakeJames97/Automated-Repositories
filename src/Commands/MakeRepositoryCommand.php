@@ -91,7 +91,7 @@ class MakeRepositoryCommand extends Command
 
     protected function createContract(string $name): bool
     {
-        if ($this->files->exists($path = $this->getPath($name, 'Contracts'))) {
+        if ($this->files->exists($path = $this->getPath($this->convertNameForContract($name), 'Contracts'))) {
             $this->error('Contract already exists!');
             return false;
         }
@@ -157,7 +157,7 @@ class MakeRepositoryCommand extends Command
         $className = ucwords(Str::camel($this->argument('name')));
 
         if (!$repository) {
-           $className = str_replace('Repository', '', $className);
+           $className = $this->convertNameForContract($className);
         }
 
         $stub = str_replace('{{class}}', $className, $stub);
@@ -176,7 +176,7 @@ class MakeRepositoryCommand extends Command
     {
         $className = ucwords(Str::camel($this->argument('name')));
 
-        $contractName = str_replace('Repository', '', $className);
+        $contractName = $this->convertNameForContract($className);
 
         $stub = str_replace('{{contract}}', $contractName, $stub);
 
@@ -206,6 +206,15 @@ class MakeRepositoryCommand extends Command
     protected function getPath(string $name, string $type): string
     {
         return base_path() . '/' . $type . '/' . $name . '.php';
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function convertNameForContract($name): string
+    {
+        return str_replace('Repository', '', $name);
     }
 
     /**
