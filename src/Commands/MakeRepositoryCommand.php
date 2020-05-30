@@ -74,7 +74,7 @@ class MakeRepositoryCommand extends Command
     protected function createRepository(string $name): bool
     {
         if ($this->files->exists($path = $this->getPath($name, 'Repositories'))) {
-            $this->error($this->type . ' already exists!');
+            $this->error('Repository already exists!');
             return false;
         }
         $this->makeDirectory($path);
@@ -92,7 +92,7 @@ class MakeRepositoryCommand extends Command
     protected function createContract(string $name): bool
     {
         if ($this->files->exists($path = $this->getPath($name, 'Contracts'))) {
-            $this->error($this->type . ' already exists!');
+            $this->error('Contract already exists!');
             return false;
         }
         $this->makeDirectory($path);
@@ -157,7 +157,7 @@ class MakeRepositoryCommand extends Command
         $className = ucwords(Str::camel($this->argument('name')));
 
         if (!$repository) {
-            str_replace('Repository', '', $className)
+            str_replace('Repository', '', $className);
         }
 
         $stub = str_replace('{{class}}', $className, $stub);
@@ -219,5 +219,4 @@ class MakeRepositoryCommand extends Command
             ['name', InputArgument::REQUIRED, 'The name of the repository'],
         ];
     }
-
 }
