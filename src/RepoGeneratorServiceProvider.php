@@ -36,7 +36,7 @@ class RepoGeneratorServiceProvider extends ServiceProvider
     private function registerRepositoryGenerator(): void
     {
         $this->app->singleton('jakejames.RepoGenerator.Commands.MakeRepositoryCommand', function ($app) {
-            return $app['jakejames\RepoGenerator\Commands\MakeRepositoryCommand'];
+            return $app['JakeJames\RepoGenerator\Commands\MakeRepositoryCommand'];
         });
 
         $this->commands('jakejames.RepoGenerator.Commands.MakeRepositoryCommand');
