@@ -143,12 +143,28 @@ class MakeRepositoryCommand extends Command
 
         try {
             $this->files->put($path, $this->compileProviderStub());
+            $providerFile = strstr($path, 'app/');
+            $this->registerServiceProvider($providerFile);
         } catch (FileNotFoundException $e) {
             $this->error('could not create service provider');
             return false;
         }
+
         $this->info('Service Provider created successfully.');
         return true;
+    }
+
+    protected function registerServiceProvider(string $providerPath)
+    {
+        $providerPath = $this->convertToRegisterFormat($providerPath);
+
+        $file_content = $this->files->get(base_path() . '/config/app.php');
+
+        $array_start = strpos($file_content, "App\Providers\AppServiceProvider::class,");
+
+        $file_content = substr_replace($file_content, $providerPath, $array_start, 0);
+
+        $this->files->put(base_path() . '/config/app.php', $file_content);
     }
 
     /**
@@ -313,6 +329,20 @@ class MakeRepositoryCommand extends Command
             return str_replace('Repo', '', $name);
         }
         return $name;
+    }
+
+    /**
+     * Formats the string for storing in the config
+     * @param $path
+     *
+     * @return string
+     */
+    protected function convertToRegisterFormat($path): string
+    {
+        $path = str_replace(['.php', '/', 'app'], ['::class', '\\', 'App'], $path);
+
+        return $path .  ',
+        ';
     }
 
     /**
