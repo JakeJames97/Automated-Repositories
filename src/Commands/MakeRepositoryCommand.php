@@ -181,9 +181,15 @@ class MakeRepositoryCommand extends Command
         try {
             $file_content = $this->files->get(base_path() . '/config/app.php');
 
-            $array_start = strpos($file_content, "App\Providers\AppServiceProvider::class,");
+            $length = strlen("/*
+         * Application Service Providers...
+         */");
 
-            $file_content = substr_replace($file_content, $providerPath, $array_start, 0);
+            $array_start = strpos($file_content, "/*
+         * Application Service Providers...
+         */");
+
+            $file_content = substr_replace($file_content, $providerPath, $array_start + $length, 0);
 
             $this->files->put(base_path() . '/config/app.php', $file_content);
         } catch (\Exception $exception) {
@@ -374,8 +380,7 @@ class MakeRepositoryCommand extends Command
     {
         $path = str_replace(['.php', '/', 'app'], ['::class', '\\', 'App'], $path);
 
-        return $path .  ',
-        ';
+        return  "\n\t\t" . $path .  ',';
     }
 
     /**
