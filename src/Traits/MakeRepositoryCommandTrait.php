@@ -24,7 +24,7 @@ trait MakeRepositoryCommandTrait
      */
     protected function validateName(string $name)
     {
-        return preg_match("/^[A-Za-z_- ]+$/", $name);
+        return preg_match('/^[a-zA-Z]([a-zA-Z_-])+$/i', $name);
     }
 
     /**
