@@ -4,6 +4,7 @@ namespace JakeJames\AutomatedRepositories\Tests\feature\commands;
 
 use Illuminate\Filesystem\Filesystem;
 use JakeJames\AutomatedRepositories\Tests\TestCase;
+use JakeJames\AutomatedRepositories\AutomatedRepositoriesServiceProvider;
 
 class MakeRepositoryCommandTest extends TestCase
 {
@@ -16,7 +17,7 @@ class MakeRepositoryCommandTest extends TestCase
 
     protected function getPackageProviders($app): array
     {
-        return ['JakeJames\AutomatedRepositories\AutomatedRepositoriesServiceProvider'];
+        return [AutomatedRepositoriesServiceProvider::class];
     }
 
     /**

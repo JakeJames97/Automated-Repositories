@@ -188,13 +188,13 @@ class MakeRepositoryCommand extends Command
         try {
             $file_content = $this->files->get(base_path() . '/config/app.php');
 
-            $length = strlen("/*
+            $length = strlen('/*
          * Application Service Providers...
-         */");
+         */');
 
-            $array_start = strpos($file_content, "/*
+            $array_start = strpos($file_content, '/*
          * Application Service Providers...
-         */");
+         */');
 
             $file_content = substr_replace($file_content, $providerPath, $array_start + $length, 0);
 
@@ -216,7 +216,7 @@ class MakeRepositoryCommand extends Command
      * Compile the repository stub.
      *
      * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     protected function compileRepositoryStub(): string
     {
@@ -231,7 +231,7 @@ class MakeRepositoryCommand extends Command
      * Compile the contract stub.
      *
      * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     protected function compileContractStub(): string
     {
@@ -246,7 +246,7 @@ class MakeRepositoryCommand extends Command
      * Compile the provider stub.
      *
      * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     protected function compileProviderStub(): string
     {

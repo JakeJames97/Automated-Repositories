@@ -52,8 +52,10 @@ class MakeRepositoryTraitTest extends TestCase
 
     /**
      * @dataProvider registerFormatProvider
+     * @param $path
+     * @param $expected
      */
-    public function convert_to_register_format_returns_expected_format($path, $expected)
+    public function convert_to_register_format_returns_expected_format($path, $expected): void
     {
         $result = $this->convertToRegisterFormat($path);
 
