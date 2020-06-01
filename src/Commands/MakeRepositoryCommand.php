@@ -307,7 +307,9 @@ class MakeRepositoryCommand extends Command
                 $contractName . ' as ' . $contractName . 'Contract',
                 $contractName . 'Contract',
                 $contractName . 'Repository'
-            ], $stub);
+            ],
+            $stub
+        );
 
         return $this;
     }
@@ -326,8 +328,11 @@ class MakeRepositoryCommand extends Command
         $contractName = $this->convertNameForContract($className);
 
         if ($contractName === $this->repoName) {
-            $stub = str_replace(['{{contract_import}}', '{{contract}}'],
-                [$contractName . ' as ' . $contractName . 'Repository', $contractName . 'Repository'], $stub);
+            $stub = str_replace(
+                ['{{contract_import}}', '{{contract}}'],
+                [$contractName . ' as ' . $contractName . 'Repository', $contractName . 'Repository'],
+                $stub
+            );
         } else {
             $stub = str_replace(['{{contract_import}}', '{{contract}}'], [$contractName, $contractName], $stub);
         }

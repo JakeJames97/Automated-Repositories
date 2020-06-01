@@ -54,6 +54,6 @@ trait MakeRepositoryCommandTrait
     {
         $path = str_replace(['.php', '/', 'app'], ['::class', '\\', 'App'], $path);
 
-        return  "\n\t\t" . $path .  ',';
+        return "\n\t\t" . $path . ',';
     }
 }

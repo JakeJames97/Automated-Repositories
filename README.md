@@ -5,20 +5,38 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/jakejames/automated-repositories.svg?style=flat-square)](https://scrutinizer-ci.com/g/jakejames/automated-repositories)
 [![Total Downloads](https://img.shields.io/packagist/dt/jakejames/automated-repositories.svg?style=flat-square)](https://packagist.org/packages/jakejames/automated-repositories)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This is a simple package for generating standard templates for the repository pattern.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require jakejames/automated-repositories
+composer require jakejames/automated-repositories --dev
 ```
 
 ## Usage
 
 ``` php
-// Usage description here
+Run the following command:
+
+php artisan make:repository { name }
+
+We recommend using the following pattern for naming:
+- RegisterRepository
+- LoginRepository
+
+This will use the word before 'Repository'
+as your contract name and service provider name
+
+E.g
+'LoginRepository' will generate the following files:
+LoginRepository,
+Login (contract),
+LoginServiceProvider
+
+Once the files have been generated, the command will attempt to
+register the new service provider inside your config/app.php
 ```
 
 ### Testing
@@ -47,7 +65,3 @@ If you discover any security related issues, please email jake@jump24.co.uk inst
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
