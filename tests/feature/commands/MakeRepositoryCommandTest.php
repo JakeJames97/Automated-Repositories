@@ -3,15 +3,10 @@
 namespace JakeJames\AutomatedRepositories\Tests\feature\commands;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
-use Orchestra\Testbench\TestCase;
+use JakeJames\AutomatedRepositories\Tests\TestCase;
 
 class MakeRepositoryCommandTest extends TestCase
 {
-    /**
-     * @var Filesystem $files
-     */
-    protected $files;
 
     protected function setUp(): void
     {
@@ -118,30 +113,5 @@ class MakeRepositoryCommandTest extends TestCase
             ['login_repository', 'Login'],
             ['login-repository', 'Login'],
         ];
-    }
-
-    protected function removeAddedFiles($name): void
-    {
-        $base_name = ucwords(Str::camel($name));
-        if (strpos($base_name, 'Repository')) {
-            $base_name = str_replace('Repository', '', $base_name);
-        }
-        if (strpos($base_name, 'Repo')) {
-            $base_name = str_replace('Repo', '', $base_name);
-        }
-        // remove register service provider
-        $file = $this->files->get(base_path() . '/config/app.php');
-        $updated_file = str_replace('App\Providers\\' . $base_name . 'ServiceProvider::class,', '', $file);
-        $this->files->put(base_path() . '/config/app.php', $updated_file);
-
-        if (is_file($file = base_path() . '/app/Contracts/' . $base_name  . '.php')) {
-            $this->files->delete($file);
-        }
-        if (is_file($file = base_path() . '/app/Repositories/' . $base_name . 'Repository.php')) {
-            $this->files->delete($file);
-        }
-        if (is_file($file = base_path() . '/app/Providers/' . $base_name . 'ServiceProvider.php')) {
-            $this->files->delete($file);
-        }
     }
 }
