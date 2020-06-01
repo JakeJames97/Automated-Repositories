@@ -1,8 +1,7 @@
 <?php
 
-namespace JakeJames\AutomatedRepositories\Tests;
+namespace JakeJames\AutomatedRepositories\Tests\feature\commands;
 
-use App\Repositories\RegisterRepository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
@@ -45,6 +44,37 @@ class MakeRepositoryCommandTest extends TestCase
         $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
 
         $this->removeAddedFiles($name);
+    }
+
+    /**
+     * @test
+     */
+    public function running_make_repository_command_twice_throws_messages_saying_already_exists(): void
+    {
+        $base_name = 'Register';
+
+        $this->artisan('make:repository', ['name' => 'RegisterRepository'])
+            ->expectsOutput('Repository created successfully.')
+            ->expectsOutput('Contract created successfully.')
+            ->expectsOutput('Registered Service Provider')
+            ->expectsOutput('Service Provider created successfully.')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(base_path() . '/app/Contracts/' . $base_name . '.php');
+        $this->assertFileExists(base_path() . '/app/Repositories/' . $base_name . 'Repository.php');
+        $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
+
+        $this->artisan('make:repository', ['name' => 'RegisterRepository'])
+            ->expectsOutput('Repository already exists!')
+            ->expectsOutput('Contract already exists!')
+            ->expectsOutput('Service Provider already exists!')
+            ->assertExitCode(0);
+
+        $this->assertFileExists(base_path() . '/app/Contracts/' . $base_name . '.php');
+        $this->assertFileExists(base_path() . '/app/Repositories/' . $base_name . 'Repository.php');
+        $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
+
+        $this->removeAddedFiles('RegisterRepository');
     }
 
     protected function removeAddedFiles($name): void

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Test Suite" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.044105">
-    <testsuite name="JakeJames\AutomatedRepositories\Tests\ExampleTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/ExampleTest.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.044105">
-      <testcase name="true_is_true" class="JakeJames\AutomatedRepositories\Tests\ExampleTest" classname="JakeJames.AutomatedRepositories.Tests.ExampleTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/ExampleTest.php" line="11" assertions="1" time="0.044105"/>
+  <testsuite name="Test Suite" tests="5" assertions="47" errors="0" warnings="0" failures="0" skipped="0" time="0.825995">
+    <testsuite name="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" tests="5" assertions="47" errors="0" warnings="0" failures="0" skipped="0" time="0.825995">
+      <testsuite name="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest::make_repository_command_creates_all_expected_files" tests="4" assertions="32" errors="0" warnings="0" failures="0" skipped="0" time="0.580657">
+        <testcase name="make_repository_command_creates_all_expected_files with data set #0" class="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" classname="JakeJames.AutomatedRepositories.Tests.feature.commands.MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" line="33" assertions="8" time="0.205350"/>
+        <testcase name="make_repository_command_creates_all_expected_files with data set #1" class="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" classname="JakeJames.AutomatedRepositories.Tests.feature.commands.MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" line="33" assertions="8" time="0.126765"/>
+        <testcase name="make_repository_command_creates_all_expected_files with data set #2" class="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" classname="JakeJames.AutomatedRepositories.Tests.feature.commands.MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" line="33" assertions="8" time="0.123700"/>
+        <testcase name="make_repository_command_creates_all_expected_files with data set #3" class="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" classname="JakeJames.AutomatedRepositories.Tests.feature.commands.MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" line="33" assertions="8" time="0.124842"/>
+      </testsuite>
+      <testcase name="running_make_repository_command_twice_throws_messages_saying_already_exists" class="JakeJames\AutomatedRepositories\Tests\feature\commands\MakeRepositoryCommandTest" classname="JakeJames.AutomatedRepositories.Tests.feature.commands.MakeRepositoryCommandTest" file="/Users/jakejames/Sites/Automated-Repositories/tests/feature/commands/MakeRepositoryCommandTest.php" line="52" assertions="15" time="0.245338"/>
     </testsuite>
   </testsuite>
 </testsuites>

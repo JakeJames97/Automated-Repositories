@@ -18,7 +18,6 @@
     "require": {
         "php": "^7.4",
         "illuminate/support": "~5.8.0|^6.0|^7.0"
-
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",
@@ -27,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JakeJames\\AutomatedRepositories\\": "src"
+            "JakeJames\\AutomatedRepositories\\": "src/"
         }
     },
     "autoload-dev": {
@@ -47,10 +46,7 @@
         "laravel": {
             "providers": [
                 "JakeJames\\AutomatedRepositories\\AutomatedRepositoriesServiceProvider"
-            ],
-            "aliases": {
-                "AutomatedRepositories": "JakeJames\\AutomatedRepositories\\AutomatedRepositoriesFacade"
-            }
+            ]
         }
     }
 }

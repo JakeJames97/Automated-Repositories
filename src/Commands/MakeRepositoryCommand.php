@@ -7,11 +7,14 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
+use JakeJames\AutomatedRepositories\Traits\MakeRepositoryCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
 
 class MakeRepositoryCommand extends Command
 {
+    use MakeRepositoryCommandTrait;
+
     /**
      * The console command name.
      *
@@ -69,6 +72,10 @@ class MakeRepositoryCommand extends Command
     {
         $name = $this->argument('name');
         $name = ucwords(Str::camel($name));
+        if (!$this->validateName($name)) {
+            $this->error('Invalid name, Please ensure you are using valid characters');
+            return;
+        }
         $this->repoName = $name;
         $this->createRepository($name);
         $this->createContract($name);
@@ -338,49 +345,6 @@ class MakeRepositoryCommand extends Command
         if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
-    }
-
-    /**
-     * Get the path to where we should store the migration.
-     *
-     * @param string $name
-     * @param string $type
-     *
-     * @return string
-     */
-    protected function getPath(string $name, string $type): string
-    {
-        return base_path() . '/app/' . $type . '/' . $name . '.php';
-    }
-
-    /**
-     * Converts the name given for the contract name
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function convertNameForContract($name): string
-    {
-        if (strpos($name, 'Repository')) {
-            return str_replace('Repository', '', $name);
-        }
-        if (strpos($name, 'Repo')) {
-            return str_replace('Repo', '', $name);
-        }
-        return $name;
-    }
-
-    /**
-     * Formats the string for storing in the config
-     * @param $path
-     *
-     * @return string
-     */
-    protected function convertToRegisterFormat($path): string
-    {
-        $path = str_replace(['.php', '/', 'app'], ['::class', '\\', 'App'], $path);
-
-        return  "\n\t\t" . $path .  ',';
     }
 
     /**
