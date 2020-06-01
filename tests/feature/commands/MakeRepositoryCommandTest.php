@@ -77,6 +77,49 @@ class MakeRepositoryCommandTest extends TestCase
         $this->removeAddedFiles('RegisterRepository');
     }
 
+    /**
+     * @test
+     * @dataProvider incorrectNameProvider
+     * @param string $name
+     */
+    public function throws_error_with_invalid_names($name): void
+    {
+        $this->artisan('make:repository', ['name' => $name])
+            ->expectsOutput('Invalid name, Please ensure you are using valid characters')
+            ->assertExitCode(0);
+    }
+
+    /**
+     * @return array
+     */
+    public function incorrectNameProvider(): array
+    {
+        return [
+            ['20'],
+            ['@43'],
+            ['389test'],
+            ['~test'],
+            [' '],
+            ['!'],
+            ['£'],
+            ['$%^&*()'],
+            ['test&']
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function fileNameProvider(): array
+    {
+        return [
+            ['RegisterRepository', 'Register'],
+            ['LoginRepository', 'Login'],
+            ['login_repository', 'Login'],
+            ['login-repository', 'Login'],
+        ];
+    }
+
     protected function removeAddedFiles($name): void
     {
         $base_name = ucwords(Str::camel($name));
@@ -100,18 +143,5 @@ class MakeRepositoryCommandTest extends TestCase
         if (is_file($file = base_path() . '/app/Providers/' . $base_name . 'ServiceProvider.php')) {
             $this->files->delete($file);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function fileNameProvider(): array
-    {
-        return [
-            ['RegisterRepository', 'Register'],
-            ['LoginRepository', 'Login'],
-            ['login_repository', 'Login'],
-            ['login-repository', 'Login'],
-        ];
     }
 }
