@@ -1,8 +1,7 @@
 # Very short description of the package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jakejames/automated-repositories.svg?style=flat-square)](https://packagist.org/packages/jakejames/automated-repositories)
-[![Build Status](https://img.shields.io/travis/jakejames/automated-repositories/master.svg?style=flat-square)](https://travis-ci.org/jakejames/automated-repositories)
-[![Quality Score](https://img.shields.io/scrutinizer/g/jakejames/automated-repositories.svg?style=flat-square)](https://scrutinizer-ci.com/g/jakejames/automated-repositories)
+[![Build Status](https://travis-ci.com/JakeJames97/Automated-Repositories.svg?token=RZLqTCZSeqTmbxpWj5Dg&branch=master)](https://travis-ci.com/JakeJames97/Automated-Repositories)
 [![Total Downloads](https://img.shields.io/packagist/dt/jakejames/automated-repositories.svg?style=flat-square)](https://packagist.org/packages/jakejames/automated-repositories)
 
 This is a simple package for generating standard templates for the repository pattern.
