@@ -66,7 +66,7 @@ class MakeRepositoryCommand extends Command
      *
      * @var string
      */
-    protected string $type = 'Repository';
+    protected $type = 'Repository';
 
     public function handle(): void
     {

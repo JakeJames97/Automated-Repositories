@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-    protected Filesystem $files;
+    protected $files;
 
     protected function setUp(): void
     {
