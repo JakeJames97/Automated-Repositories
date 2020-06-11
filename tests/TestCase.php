@@ -15,9 +15,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->files = app()->make(Filesystem::class);
 
-        config()->set(['config.directory.Repositories' => 'app/Repositories']);
-        config()->set(['config.directory.Contracts' => 'app/Contracts']);
-        config()->set(['config.directory.Providers' => 'app/Providers']);
+        config()->set(['automatedRepositories.directory.Repositories' => 'app/Repositories']);
+        config()->set(['automatedRepositories.directory.Contracts' => 'app/Contracts']);
+        config()->set(['automatedRepositories.directory.Providers' => 'app/Providers']);
     }
 
     protected function removeAddedFiles($name): void

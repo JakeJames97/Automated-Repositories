@@ -12,11 +12,9 @@ class AutomatedRepositoriesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('automated-repositories.php'),
-            ], 'config');
-        }
+        $this->publishes([
+            __DIR__ . '/../config/automatedRepositories.php' => config_path('automated-repositories.php'),
+        ], 'config');
     }
 
     /**
@@ -25,7 +23,7 @@ class AutomatedRepositoriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'automated-repositories');
+        $this->mergeConfigFrom(__DIR__ . '/../config/automatedRepositories.php', 'automated-repositories');
         $this->registerRepositoryGenerator();
     }
 
