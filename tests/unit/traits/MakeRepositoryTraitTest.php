@@ -16,7 +16,7 @@ class MakeRepositoryTraitTest extends TestCase
      * @param $name
      * @param $type
      */
-    public function get_path_returns_correct_path($name, $type): void
+    public function get_path_returns_correct_path($type, $name): void
     {
         $this->assertEquals(base_path() . '/app/' . $type . '/' . $name . '.php', $this->getPath($name, $type));
     }
@@ -118,7 +118,7 @@ class MakeRepositoryTraitTest extends TestCase
         return [
           ['Repositories', 'Register'],
           ['Contracts', 'Login'],
-          ['ServiceProvider', 'Login']
+          ['Providers', 'Login']
         ];
     }
 }

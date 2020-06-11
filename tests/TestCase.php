@@ -14,6 +14,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->files = app()->make(Filesystem::class);
+
+        config()->set(['config.directory.Repositories' => 'app/Repositories']);
+        config()->set(['config.directory.Contracts' => 'app/Contracts']);
+        config()->set(['config.directory.Providers' => 'app/Providers']);
     }
 
     protected function removeAddedFiles($name): void
