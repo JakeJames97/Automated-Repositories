@@ -14,7 +14,7 @@ trait MakeRepositoryCommandTrait
      */
     protected function getPath(string $name, string $type): string
     {
-        return base_path() . '/' . config('automatedRepositories.directory.' . ucwords($type)) . '/' . $name . '.php';
+        return base_path() . '/' . config('automatedRepositories.directory.' . strtolower($type)) . '/' . $name . '.php';
     }
 
     /**
