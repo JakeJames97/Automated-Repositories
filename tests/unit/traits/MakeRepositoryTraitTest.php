@@ -6,6 +6,11 @@ use Illuminate\Support\Str;
 use JakeJames\AutomatedRepositories\Tests\TestCase;
 use JakeJames\AutomatedRepositories\Traits\MakeRepositoryCommandTrait;
 
+/**
+ * Class MakeRepositoryTraitTest
+ * @package JakeJames\AutomatedRepositories\Tests\unit\traits
+ * @group MakeRepositoryTrait
+ */
 class MakeRepositoryTraitTest extends TestCase
 {
     use MakeRepositoryCommandTrait;
@@ -18,7 +23,7 @@ class MakeRepositoryTraitTest extends TestCase
      */
     public function get_path_returns_correct_path($type, $name): void
     {
-        $this->assertEquals(base_path() . '/app/' . $type . '/' . $name . '.php', $this->getPath($name, $type));
+        $this->assertEquals(base_path() . '/App/' . $type . '/' . $name . '.php', $this->getPath($name, $type));
     }
 
     /**
@@ -60,6 +65,28 @@ class MakeRepositoryTraitTest extends TestCase
         $result = $this->convertToRegisterFormat($path);
 
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @test
+     * @dataProvider namespaceProvider
+     * @param $name
+     * @param $type
+     */
+    public function get_namespace_return_the_correct_namespace($name, $type): void
+    {
+        $result = $this->getNamespace($name, $type);
+
+        $this->assertEquals('App\\' . ucwords($type) . '\\' . $name, $result);
+    }
+
+    public function namespaceProvider(): array
+    {
+        return [
+            ['register', 'repositories'],
+            ['register', 'contracts'],
+            ['register', 'providers'],
+        ];
     }
 
     /**
@@ -116,9 +143,9 @@ class MakeRepositoryTraitTest extends TestCase
     public function pathProvider(): array
     {
         return [
-          ['Repositories', 'Register'],
-          ['Contracts', 'Login'],
-          ['Providers', 'Login']
+            ['Repositories', 'Register'],
+            ['Contracts', 'Login'],
+            ['Providers', 'Login']
         ];
     }
 }
