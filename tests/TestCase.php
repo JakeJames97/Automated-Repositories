@@ -34,13 +34,13 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $updated_file = str_replace('App\Providers\\' . $base_name . 'ServiceProvider::class,', '', $file);
         $this->files->put(base_path() . '/config/app.php', $updated_file);
 
-        if (is_file($file = base_path() . '/App/Contracts/' . $base_name  . '.php')) {
+        if (is_file($file = base_path() . '/app/Contracts/' . $base_name  . '.php')) {
             $this->files->delete($file);
         }
-        if (is_file($file = base_path() . '/App/Repositories/' . $base_name . 'Repository.php')) {
+        if (is_file($file = base_path() . '/app/Repositories/' . $base_name . 'Repository.php')) {
             $this->files->delete($file);
         }
-        if (is_file($file = base_path() . '/App/Providers/' . $base_name . 'ServiceProvider.php')) {
+        if (is_file($file = base_path() . '/app/Providers/' . $base_name . 'ServiceProvider.php')) {
             $this->files->delete($file);
         }
     }
