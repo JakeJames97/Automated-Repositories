@@ -29,8 +29,8 @@ class MakeRepositoryCommandTest extends TestCase
     public function make_repository_command_creates_all_expected_files($name, $base_name): void
     {
         $this->artisan('make:repository', ['name' => $name])
-            ->expectsOutput('Repository created successfully.')
             ->expectsOutput('Contract created successfully.')
+            ->expectsOutput('Repository created successfully.')
             ->expectsOutput('Registered Service Provider')
             ->expectsOutput('Service Provider created successfully.')
             ->assertExitCode(0);
@@ -39,7 +39,7 @@ class MakeRepositoryCommandTest extends TestCase
         $this->assertFileExists(base_path() . '/app/Repositories/' . $base_name . 'Repository.php');
         $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
 
-        $this->removeAddedFiles($name);
+//        $this->removeAddedFiles($name);
     }
 
     /**
@@ -50,8 +50,8 @@ class MakeRepositoryCommandTest extends TestCase
         $base_name = 'Register';
 
         $this->artisan('make:repository', ['name' => 'RegisterRepository'])
-            ->expectsOutput('Repository created successfully.')
             ->expectsOutput('Contract created successfully.')
+            ->expectsOutput('Repository created successfully.')
             ->expectsOutput('Registered Service Provider')
             ->expectsOutput('Service Provider created successfully.')
             ->assertExitCode(0);
@@ -61,8 +61,8 @@ class MakeRepositoryCommandTest extends TestCase
         $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
 
         $this->artisan('make:repository', ['name' => 'RegisterRepository'])
-            ->expectsOutput('Repository already exists!')
             ->expectsOutput('Contract already exists!')
+            ->expectsOutput('Repository already exists!')
             ->expectsOutput('Service Provider already exists!')
             ->assertExitCode(0);
 

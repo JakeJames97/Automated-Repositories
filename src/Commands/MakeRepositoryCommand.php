@@ -48,6 +48,16 @@ class MakeRepositoryCommand extends Command
     protected $repoName;
 
     /**
+     * @var $contract_import
+     */
+    protected $contract_import;
+
+    /**
+     * @var $repository_import
+     */
+    protected $repository_import;
+
+    /**
      * MakeRepositoryCommand constructor.
      *
      * @param Filesystem $files
@@ -77,8 +87,8 @@ class MakeRepositoryCommand extends Command
             return;
         }
         $this->repoName = $name;
-        $this->createRepository($name);
         $this->createContract($name);
+        $this->createRepository($name);
         $this->createServiceProvider($name);
 
         $this->composer->dumpAutoloads();
@@ -222,7 +232,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/repository.stub');
 
-        $this->replaceClassName($stub, true)->replaceContractName($stub);
+        $this->replaceClassName($stub, true)->replaceContractName($stub)->replaceNamespace($stub, 'repositories');
 
         return $stub;
     }
@@ -237,7 +247,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/contract.stub');
 
-        $this->replaceClassName($stub);
+        $this->replaceClassName($stub)->replaceNamespace($stub, 'contracts');
 
         return $stub;
     }
@@ -284,6 +294,43 @@ class MakeRepositoryCommand extends Command
     }
 
     /**
+     * Replace the namespace in the stub.
+     *
+     * @param string $stub
+     * @param string $type
+     *
+     * @return $this
+     */
+    protected function replaceNamespace(&$stub, $type): self
+    {
+        $className = ucwords(Str::camel($this->argument('name')));
+
+        if ($type === 'contracts') {
+            $className = $this->convertNameForContract($className);
+        }
+
+        if ($type === 'providers') {
+            $className .= 'ServiceProvider';
+        }
+
+
+        $namespace = $this->getNamespace($className, $type);
+
+        if ($type === 'contracts') {
+            $this->contract_import = $namespace;
+        }
+
+        if ($type === 'repositories') {
+            $this->repository_import = $namespace;
+        }
+
+
+        $stub = str_replace('{{namespace}}', $namespace, $stub);
+
+        return $this;
+    }
+
+    /**
      * replaces the import names in the stub
      * @param $stub
      *
@@ -303,8 +350,8 @@ class MakeRepositoryCommand extends Command
                 '{{repository_name}}'
             ],
             [
-                $className === $contractName ? $className . ' as ' . $contractName . 'Repository' : $className,
-                $contractName . ' as ' . $contractName . 'Contract',
+                $className === $contractName ? $this->repository_import . ' as ' . $contractName . 'Repository' : $this->repository_import,
+                $this->contract_import . ' as ' . $contractName . 'Contract',
                 $contractName . 'Contract',
                 $contractName . 'Repository'
             ],
@@ -327,14 +374,16 @@ class MakeRepositoryCommand extends Command
 
         $contractName = $this->convertNameForContract($className);
 
+        $namespace = $this->getNamespace($contractName, 'repositories');
+
         if ($contractName === $this->repoName) {
             $stub = str_replace(
                 ['{{contract_import}}', '{{contract}}'],
-                [$contractName . ' as ' . $contractName . 'Repository', $contractName . 'Repository'],
+                [$namespace . ' as ' . $contractName . 'Repository', $contractName . 'Repository'],
                 $stub
             );
         } else {
-            $stub = str_replace(['{{contract_import}}', '{{contract}}'], [$contractName, $contractName], $stub);
+            $stub = str_replace(['{{contract_import}}', '{{contract}}'], [$namespace, $contractName], $stub);
         }
 
         return $this;

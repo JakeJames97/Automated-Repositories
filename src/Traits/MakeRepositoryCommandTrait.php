@@ -56,4 +56,17 @@ trait MakeRepositoryCommandTrait
 
         return "\n\t\t" . $path . ',';
     }
+
+    /**
+     * @param string $name
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function getNamespace(string $name, string $type): string
+    {
+        $path = config('automatedRepositories.directory.' . strtolower($type)) . '/' . $name;
+
+        return str_replace('/', '\\', $path);
+    }
 }

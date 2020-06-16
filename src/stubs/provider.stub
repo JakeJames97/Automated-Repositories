@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\{{repository_import}};
-use App\Contracts\{{contract_import}};
+use {{repository_import}};
+use {{contract_import}};
 use Illuminate\Support\ServiceProvider;
 
 class {{class}} extends ServiceProvider

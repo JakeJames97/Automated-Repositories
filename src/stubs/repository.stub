@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace {{namespace}};
 
-use App\Contracts\{{contract_import}};
+use {{contract_import}};
 
 /**
  * Class {{class}}
- * @package App\Repositories
+ * @package {{namespace}}
  */
 class {{class}} implements {{contract}}
 {

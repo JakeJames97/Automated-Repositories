@@ -2,8 +2,8 @@
 
 return [
     'directory' => [
-        'repositories' => 'app/Repositories',
-        'contracts' => 'app/Contracts',
-        'providers' => 'app/Providers'
+        'repositories' => 'App/Repositories',
+        'contracts' => 'App/Contracts',
+        'providers' => 'App/Providers'
     ]
 ];
