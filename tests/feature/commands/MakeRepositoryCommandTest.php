@@ -39,7 +39,7 @@ class MakeRepositoryCommandTest extends TestCase
         $this->assertFileExists(base_path() . '/app/Repositories/' . $base_name . 'Repository.php');
         $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
 
-//        $this->removeAddedFiles($name);
+        $this->removeAddedFiles($name);
     }
 
     /**
