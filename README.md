@@ -55,11 +55,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 If you discover any security related issues, please email jake@jump24.co.uk instead of using the issue tracker.
 
-## Credits
-
-- [Jake James](https://github.com/jakejames)
-- [All Contributors](../../contributors)
-
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
