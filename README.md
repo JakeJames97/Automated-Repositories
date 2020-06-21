@@ -16,10 +16,13 @@ composer require jakejames/automated-repositories --dev
 
 ## Usage
 
-``` php
+Publish the config file:
+
+    php artisan vendor:publish --tag=config
+
 Run the following command:
 
-php artisan make:repository { name }
+    php artisan make:repository { name }
 
 We recommend using the following pattern for naming:
 - RegisterRepository
@@ -36,13 +39,9 @@ LoginServiceProvider
 
 Once the files have been generated, the command will attempt to
 register the new service provider inside your config/app.php
-```
 
-### Testing
-
-``` bash
-composer test
-```
+## Running Tests
+    composer test
 
 ### Changelog
 
