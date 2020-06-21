@@ -263,7 +263,7 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/provider.stub');
 
-        $this->replaceClassName($stub, false, true)->replaceImportNames($stub);
+        $this->replaceClassName($stub, false, true)->replaceNamespace($stub, 'providers')->replaceImportNames($stub);
 
         return $stub;
     }
