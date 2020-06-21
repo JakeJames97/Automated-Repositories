@@ -35,9 +35,9 @@ class MakeRepositoryCommandTest extends TestCase
             ->expectsOutput('Service Provider created successfully.')
             ->assertExitCode(0);
 
-        $this->assertFileExists(base_path() . '/App/Contracts/' . $base_name . '.php');
-        $this->assertFileExists(base_path() . '/App/Repositories/' . $base_name . 'Repository.php');
-        $this->assertFileExists(base_path() . '/App/Providers/' . $base_name .  'ServiceProvider.php');
+        $this->assertFileExists(base_path() . '/app/Contracts/' . $base_name . '.php');
+        $this->assertFileExists(base_path() . '/app/Repositories/' . $base_name . 'Repository.php');
+        $this->assertFileExists(base_path() . '/app/Providers/' . $base_name .  'ServiceProvider.php');
 
         $this->removeAddedFiles($name);
     }

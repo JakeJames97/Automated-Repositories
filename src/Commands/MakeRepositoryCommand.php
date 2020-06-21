@@ -159,7 +159,7 @@ class MakeRepositoryCommand extends Command
 
         try {
             $this->files->put($path, $this->compileProviderStub());
-            $providerFile = strstr($path, 'App/');
+            $providerFile = strstr($path, 'app/');
             $this->registerServiceProvider($providerFile);
         } catch (\Exception $e) {
             $this->error('could not create service provider');
@@ -366,18 +366,21 @@ class MakeRepositoryCommand extends Command
 
         $contractName = $this->convertNameForContract($className);
 
-        $namespace = $this->getNamespace('repositories');
+        $contractNamespace = $this->getNamespace('contracts');
 
         if ($contractName === $this->repoName) {
             $stub = str_replace(
                 ['{{contract_import}}', '{{contract}}'],
-                [$namespace . '\\' . $contractName . ' as ' . $contractName . 'Contract', $contractName . 'Contract'],
+                [
+                    $contractNamespace. '\\' . $contractName . ' as ' . $contractName . 'Contract',
+                    $contractName . 'Contract'
+                ],
                 $stub
             );
         } else {
             $stub = str_replace(
                 ['{{contract_import}}', '{{contract}}'],
-                [$namespace . '\\' . $contractName, $contractName],
+                [$contractNamespace . '\\' . $contractName, $contractName],
                 $stub
             );
         }
