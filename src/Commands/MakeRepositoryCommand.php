@@ -159,7 +159,7 @@ class MakeRepositoryCommand extends Command
 
         try {
             $this->files->put($path, $this->compileProviderStub());
-            $providerFile = strstr($path, 'app/');
+            $providerFile = strstr($path, 'App/');
             $this->registerServiceProvider($providerFile);
         } catch (\Exception $e) {
             $this->error('could not create service provider');

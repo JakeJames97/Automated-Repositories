@@ -23,7 +23,7 @@ class MakeRepositoryTraitTest extends TestCase
      */
     public function get_path_returns_correct_path($type, $name): void
     {
-        $this->assertEquals(base_path() . '/app/' . $type . '/' . $name . '.php', $this->getPath($name, $type));
+        $this->assertEquals(base_path() . '/App/' . $type . '/' . $name . '.php', $this->getPath($name, $type));
     }
 
     /**
@@ -76,7 +76,7 @@ class MakeRepositoryTraitTest extends TestCase
     {
         $result = $this->getNamespace($type);
 
-        $this->assertEquals('app\\' . ucwords($type), $result);
+        $this->assertEquals('App\\' . ucwords($type), $result);
     }
 
     public function namespaceProvider(): array
