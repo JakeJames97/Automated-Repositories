@@ -70,22 +70,21 @@ class MakeRepositoryTraitTest extends TestCase
     /**
      * @test
      * @dataProvider namespaceProvider
-     * @param $name
      * @param $type
      */
-    public function get_namespace_return_the_correct_namespace($name, $type): void
+    public function get_namespace_return_the_correct_namespace($type): void
     {
-        $result = $this->getNamespace($name, $type);
+        $result = $this->getNamespace($type);
 
-        $this->assertEquals('App\\' . ucwords($type) . '\\' . $name, $result);
+        $this->assertEquals('App\\' . ucwords($type), $result);
     }
 
     public function namespaceProvider(): array
     {
         return [
-            ['register', 'repositories'],
-            ['register', 'contracts'],
-            ['register', 'providers'],
+            ['repositories'],
+            ['contracts'],
+            ['providers'],
         ];
     }
 

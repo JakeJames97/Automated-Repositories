@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use JakeJames\AutomatedRepositories\Traits\MakeRepositoryCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-
 class MakeRepositoryCommand extends Command
 {
     use MakeRepositoryCommandTrait;
@@ -232,7 +231,9 @@ class MakeRepositoryCommand extends Command
     {
         $stub = $this->files->get(__DIR__ . '/../stubs/repository.stub');
 
-        $this->replaceClassName($stub, true)->replaceContractName($stub)->replaceNamespace($stub, 'repositories');
+        $this->replaceClassName($stub, true)
+            ->replaceContractName($stub)
+            ->replaceNamespace($stub, 'repositories');
 
         return $stub;
     }
@@ -303,18 +304,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function replaceNamespace(&$stub, $type): self
     {
-        $className = ucwords(Str::camel($this->argument('name')));
-
-        if ($type === 'contracts') {
-            $className = $this->convertNameForContract($className);
-        }
-
-        if ($type === 'providers') {
-            $className .= 'ServiceProvider';
-        }
-
-
-        $namespace = $this->getNamespace($className, $type);
+        $namespace = $this->getNamespace($type);
 
         if ($type === 'contracts') {
             $this->contract_import = $namespace;
@@ -350,8 +340,10 @@ class MakeRepositoryCommand extends Command
                 '{{repository_name}}'
             ],
             [
-                $className === $contractName ? $this->repository_import . ' as ' . $contractName . 'Repository' : $this->repository_import,
-                $this->contract_import . ' as ' . $contractName . 'Contract',
+                $className === $contractName ?
+                    $this->repository_import . '\\' . $contractName . ' as ' . $contractName . 'Repository' :
+                    $this->repository_import . '\\' . $this->repoName,
+                $this->contract_import . '\\' . $contractName . ' as ' . $contractName . 'Contract',
                 $contractName . 'Contract',
                 $contractName . 'Repository'
             ],
@@ -374,16 +366,20 @@ class MakeRepositoryCommand extends Command
 
         $contractName = $this->convertNameForContract($className);
 
-        $namespace = $this->getNamespace($contractName, 'repositories');
+        $namespace = $this->getNamespace('repositories');
 
         if ($contractName === $this->repoName) {
             $stub = str_replace(
                 ['{{contract_import}}', '{{contract}}'],
-                [$namespace . ' as ' . $contractName . 'Repository', $contractName . 'Repository'],
+                [$namespace . '\\' . $contractName . ' as ' . $contractName . 'Contract', $contractName . 'Contract'],
                 $stub
             );
         } else {
-            $stub = str_replace(['{{contract_import}}', '{{contract}}'], [$namespace, $contractName], $stub);
+            $stub = str_replace(
+                ['{{contract_import}}', '{{contract}}'],
+                [$namespace . '\\' . $contractName, $contractName],
+                $stub
+            );
         }
 
         return $this;

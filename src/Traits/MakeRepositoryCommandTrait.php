@@ -14,7 +14,8 @@ trait MakeRepositoryCommandTrait
      */
     protected function getPath(string $name, string $type): string
     {
-        return base_path() . '/' . config('automatedRepositories.directory.' . strtolower($type)) . '/' . $name . '.php';
+        return base_path() . '/' . config('automatedRepositories.directory.'
+                . strtolower($type)) . '/' . $name . '.php';
     }
 
     /**
@@ -58,14 +59,13 @@ trait MakeRepositoryCommandTrait
     }
 
     /**
-     * @param string $name
      * @param string $type
      *
      * @return string
      */
-    protected function getNamespace(string $name, string $type): string
+    protected function getNamespace(string $type): string
     {
-        $path = config('automatedRepositories.directory.' . strtolower($type)) . '/' . $name;
+        $path = config('automatedRepositories.directory.' . strtolower($type));
 
         return str_replace('/', '\\', $path);
     }
