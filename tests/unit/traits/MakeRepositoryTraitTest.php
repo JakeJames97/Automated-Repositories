@@ -94,8 +94,8 @@ class MakeRepositoryTraitTest extends TestCase
     public function registerFormatProvider(): array
     {
         return [
-            ['app/Providers/RegisterServiceProvider.php', 'app\\Providers\\RegisterServiceProvider::class'],
-            ['app/Providers/LoginServiceProvider.php', 'app\\Providers\\LoginServiceProvider::class'],
+            ['App/Providers/RegisterServiceProvider.php', 'App\\Providers\\RegisterServiceProvider::class'],
+            ['App/Providers/LoginServiceProvider.php', 'App\\Providers\\LoginServiceProvider::class'],
         ];
     }
 
