@@ -14,7 +14,7 @@ You can install the package via composer:
 composer require jakejames/automated-repositories --dev
 ```
 
-## Usage
+## Usage Laravel 5+
 
 Publish the config file:
 
@@ -39,6 +39,28 @@ LoginServiceProvider
 
 Once the files have been generated, the command will attempt to
 register the new service provider inside your config/app.php
+
+## Usage Lumen
+Since lumen doesn't support publishing config files, you'll need to create your own config file called
+**automatedRepositories** this should contain the following:
+
+    return [
+        'directory' => [
+            'repositories' => 'App/Repositories',
+            'contracts' => 'App/Contracts',
+            'providers' => 'App/Providers'
+        ]
+    ];
+
+Once you've added the config, it needs to be registered inside of app.php like so:
+
+    $app->configure('app');
+    
+The final step is to register the command inside of kernel.php
+
+    protected $commands = [
+         MakeRepositoryCommand::class
+    ];
 
 ## Running Tests
     composer test

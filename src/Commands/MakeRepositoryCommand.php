@@ -79,6 +79,11 @@ class MakeRepositoryCommand extends Command
 
     public function handle(): void
     {
+        if (config('automatedRepositories') === null) {
+            $this->error('Config not registered, please register the config to use this package');
+            return;
+        }
+
         $name = $this->argument('name');
         $name = ucwords(Str::camel($name));
         if (!$this->validateName($name)) {
@@ -160,6 +165,14 @@ class MakeRepositoryCommand extends Command
         try {
             $this->files->put($path, $this->compileProviderStub());
             $providerFile = strstr($path, 'App/');
+            if (app() instanceof \Laravel\Lumen\Application) {
+                $this->error(
+                    'We cannot register the provider in lumen please place $app->register('
+                    .  str_replace(['.php', '/', 'app'], ['::class', '\\', 'App'], $providerFile) .
+                    '); inside of your app.php file'
+                );
+                exit();
+            }
             $this->registerServiceProvider($providerFile);
         } catch (\Exception $e) {
             $this->error('could not create service provider');
